@@ -4,7 +4,69 @@
 namespace App\Repositories\Admin;
 
 
-class MainRepository
+use App\Repositories\CoreRepository;
+use Illuminate\Database\Eloquent\Model;
+
+class MainRepository extends CoreRepository
 {
+
+    protected function getModelClass()
+    {
+        return Model::class;
+    }
+
+    /**
+     * Get count all orders
+     * @return int
+     */
+    public static function getCountOrders()
+    {
+        $count = \DB::table('orders')
+            ->where('status', '0')
+            ->get()
+            ->count();
+
+        return $count;
+    }
+
+    /**
+     * Get count all users
+     * @return int
+     */
+    public static function getCountUsers()
+    {
+        $users = \DB::table('users')
+            ->get()
+            ->count();
+
+        return $users;
+    }
+
+    /**
+     * Get count all Products
+     * @return int
+     */
+    public static function getCountProducts()
+    {
+        $prod = \DB::table('products')
+            ->get()
+            ->count();
+
+        return $prod;
+    }
+
+    /**
+     * Get count all Categories
+     * @return int
+     */
+    public static function getCountCategories()
+    {
+        $cat = \DB::table('categories')
+            ->get()
+            ->count();
+
+        return $cat;
+    }
+
 
 }

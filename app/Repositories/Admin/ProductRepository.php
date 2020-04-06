@@ -4,7 +4,30 @@
 namespace App\Repositories\Admin;
 
 
-class ProductRepository
+use App\Repositories\CoreRepository;
+use App\Models\Admin\Product as Model;
+use Highlight\Mode;
+
+class ProductRepository extends CoreRepository
 {
 
+    public function __construct()
+    {
+        return parent::__construct();
+    }
+
+    protected function getModelClass()
+    {
+        return Model::class;
+    }
+
+    public function getLastProducts($perpage)
+    {
+        $get = $this->startConditions()
+            ->orderBy('id', 'desc')
+            ->limit($perpage)
+            ->paginate($perpage);
+
+        return $get;
+    }
 }
